@@ -28,6 +28,11 @@ ipl:
     ; Store the boot drive
     mov [BOOT.DRIVE], dl
 
+    mov al, 'A'    ; AL = character to output
+    mov ah, 0x0E
+    mov bx, 0x0000 ; Set the page number/color of character to 0
+    int 0x10       ; Video BIOS Call
+
     ; Infinite loop
     jmp $
 
