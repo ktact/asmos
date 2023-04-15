@@ -1,4 +1,11 @@
 entry:
+    ; Jump to IPL
+    jmp ipl
+
+    ; BPS(BIOS Parameter Block)
+    times 90 - ($ - $$) db 0x90
+
+ipl:
     ; Infinite loop
     jmp $
 
