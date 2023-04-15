@@ -1,3 +1,9 @@
+    ; Define load position of the boot loader
+    LOAD_POSITION_OF_BOOT_LOADER equ 0x7c00
+
+    ; Specify the load address to assembler
+    ORG LOAD_POSITION_OF_BOOT_LOADER
+
 entry:
     ; Jump to IPL
     jmp ipl
