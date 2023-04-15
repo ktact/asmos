@@ -12,8 +12,29 @@ entry:
     times 90 - ($ - $$) db 0x90
 
 ipl:
+    ; Disable interrupt
+    cli
+
+    ; Setting of the segment register
+    mov ax, 0x0000
+    mov ds, ax
+    mov es, ax
+    mov ss, ax
+    mov sp, LOAD_POSITION_OF_BOOT_LOADER
+
+    ; Enable interrupt
+    sti
+
+    ; Store the boot drive
+    mov [BOOT.DRIVE], dl
+
     ; Infinite loop
     jmp $
+
+ALIGN 2, db 0
+BOOT:
+.DRIVE:
+    dw 0
 
     ; Put the boot flat at byte 510(0x01FE)
     times 510 - ($ - $$) db 0x00
