@@ -4,6 +4,8 @@
     ; Specify the load address to assembler
     ORG LOAD_POSITION_OF_BOOT_LOADER
 
+%include "include/macro.s"
+
 entry:
     ; Jump to IPL
     jmp ipl
@@ -28,15 +30,14 @@ ipl:
     ; Store the boot drive
     mov [BOOT.DRIVE], dl
 
-    push .s0
-    call puts
-    add sp, 2        ; Clean up the stack
+    ; Output "Booting..."
+    fcall puts,.s0
 
     ; Infinite loop
     jmp $
 
     ; Data definition
-.s0 db "Booting...", 0x0A, 0x0d, 0
+.s0 db "Booting...", 0x0A, 0x0D, 0
 
 ; Function to output a character to the console
 putc:
